@@ -1,16 +1,21 @@
 package com.example.exception.controller;
 
 import com.example.exception.dto.User;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @RestController
 @RequestMapping("/api")
+@Validated
 public class APIController {
 
     @GetMapping("/user")
-    public User get(@RequestParam(required = false) String name, @RequestParam(required = false) Integer age){
+    public User get(@Size(min=2) @RequestParam String name, @NotNull @RequestParam @Min(1) Integer age){
         User user = new User();
         user.setName(name);
         user.setAge(age);
